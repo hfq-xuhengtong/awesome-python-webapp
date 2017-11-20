@@ -246,7 +246,7 @@ def _select(sql,first,*args):
 
 
 @with_connection
-def select_ont(sql,*args):
+def select_one(sql,*args):
     return _select(sql,True,*args)
 
 @with_connection
@@ -282,7 +282,7 @@ def _update(sql,*args):
 
 
 def insert(table,**kw):
-    cols,args = zip(**kw.iteritems())
+    cols,args = zip(*kw.iteritems())
     sql = "insert into `%s`(%s) values(%s) " %(table, ','.join(['`%s`' % col for col in cols ]),','.join(['?' for i in range(len(cols))]))
     return _update(sql,*args)
 
